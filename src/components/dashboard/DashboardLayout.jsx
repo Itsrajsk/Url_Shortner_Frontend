@@ -7,13 +7,16 @@ import { motion } from "framer-motion";
 import ShortenPopUp from "./ShortenPopUp";
 import { FaLink } from "react-icons/fa";
 import ShortenUrlList from "./ShortenUrlList";
+import { useNavigate } from "react-router-dom";
+import Loader from "../Loader";
 
 const DashboardLayout = () => {
+  const navigate = useNavigate();
   const { token } = useStoreContext();
   const [shortenPopUp, setShortenPopUp] = useState(false);
 
   function onError() {
-    console.log("ERROR");
+    navigate("/error");
   }
   const {
     data: myShortenUrls,
@@ -31,9 +34,7 @@ const DashboardLayout = () => {
   return (
     <div className="lg:px-14 sm:px-8 min-h-[calc(100vh-64px)]">
       {loader ? (
-        <p className="text-center text-lg font-medium text-gray-600 py-16">
-          Loading...
-        </p>
+        <Loader />
       ) : (
         <div className="lg:w-[90%] w-full mx-auto py-10">
           <div className="h-full relative">

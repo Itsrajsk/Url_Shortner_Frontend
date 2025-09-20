@@ -9,10 +9,16 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
-  const { token } = useStoreContext();
+  const { token, setToken } = useStoreContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const onLogOutHandler = () => {
+    setToken(null);
+    localStorage.removeItem("JWT_TOKEN");
+    navigate("/login");
   };
 
   return (
@@ -55,23 +61,25 @@ const Navbar = () => {
               Dashboard
             </Link>
           )}
-
         </div>
 
         {/* Action Buttons */}
         <div className="hidden lg:flex items-center gap-x-4">
-          {token ? (<Link
-            to="/register"
-            className="bg-gray-900 text-white font-semibold px-4 py-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
-          >
-            Sign Up
-          </Link>) : (<Link
-            to="/register"
-            className="bg-gray-900 text-white font-semibold px-4 py-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
-          >
-            Sign Up
-          </Link>)}
-
+          {!token ? (
+            <Link
+              to="/register"
+              className="bg-gray-900 text-white font-semibold px-4 py-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
+            >
+              Sign Up
+            </Link>
+          ) : (
+            <button
+              onClick={onLogOutHandler}
+              className="bg-gray-900 text-white font-semibold px-4 py-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
+            >
+              Sign Out
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -88,10 +96,11 @@ const Navbar = () => {
 
       {/* Corrected Mobile Menu */}
       <div
-        className={`absolute inset-x-0 top-full bg-white z-50 shadow-lg transition-all duration-300 ease-in-out lg:hidden ${isOpen
-          ? "translate-y-0 opacity-100"
-          : "-translate-y-2 opacity-0 pointer-events-none"
-          }`}
+        className={`absolute inset-x-0 top-full bg-white z-50 shadow-lg transition-all duration-300 ease-in-out lg:hidden ${
+          isOpen
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-2 opacity-0 pointer-events-none"
+        }`}
       >
         <div className="flex flex-col items-center py-4 px-6 space-y-4 border-b border-gray-200">
           {/* Use Link for all internal navigation */}
