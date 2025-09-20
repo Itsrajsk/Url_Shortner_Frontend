@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Loader from "./Loader";
 
 const ShortenUrlPage = () => {
   const { url } = useParams();
@@ -16,8 +17,11 @@ const ShortenUrlPage = () => {
 
   // Render a simple loading message while redirecting
   return (
-    <div style={{ textAlign: "center", padding: "50px", fontFamily: "sans-serif" }}>
-      <p>Redirecting...</p>
+    // <div style={{ textAlign: "center", padding: "50px", fontFamily: "sans-serif" }}>
+    //   <p>Redirecting...</p>
+    // </div>
+    <div className="min-h-[50rem]">
+      <Loader />
     </div>
   );
 };
