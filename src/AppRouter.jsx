@@ -28,6 +28,7 @@ const AppRouter = () => {
                         </PrivateRoute>
                     }
                 />
+                <Route path="/:url" element={<ShortenUrlPage />} />
                 <Route
                     path="/login"
                     element={
